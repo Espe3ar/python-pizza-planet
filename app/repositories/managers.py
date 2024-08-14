@@ -72,14 +72,30 @@ class OrderManager(BaseManager):
         cls.session.flush()
         cls.session.refresh(new_order)
         try:
-            cls.session.add_all(
-            (OrderIngredient(order_id=new_order._id, ingredient_id=ingredient._id, ingredient_price=ingredient.price) for ingredient in ingredients),
-            (OrderBeverage(order_id=new_order._id, beverage_id=beverage._id, beverage_price=beverage.price) for beverage in beverages))
+            for ingredient in ingredients:
+                cls.session.add(
+                    OrderIngredient(
+                        order_id=new_order._id,
+                        ingredient_id=ingredient._id,
+                        ingredient_price=ingredient.price,
+                    )
+                )
+
+            for beverage in beverages:
+                cls.session.add(
+                    OrderBeverage(
+                        order_id=new_order._id,
+                        beverage_id=beverage._id,
+                        beverage_price=beverage.price,
+                    )
+                )
+
+            cls.session.refresh(new_order)
             cls.session.commit()
             return cls.serializer().dump(new_order)
         except Exception as e:
             cls.session.rollback()
-        raise e
+            raise e
 
     @classmethod
     def update(cls):
