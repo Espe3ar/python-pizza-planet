@@ -25,12 +25,6 @@ jobs:
         run: |
           source venv/bin/activate
           pip install -r requirements.txt
-      - name: Set up database
-        run: |
-          source venv/bin/activate
-          python manage.py db init
-          python manage.py db migrate
-          python manage.py db upgrade
       - name: Run tests with coverage
         run: |
           source venv/bin/activate
