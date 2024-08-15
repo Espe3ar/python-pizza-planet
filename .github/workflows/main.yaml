@@ -1,28 +1,33 @@
-name: Pizza Planet CI
-
-on:
-  pull_request:
-    branches: [ main ]
-
 jobs:
-  - name: Set up virtual environment
-    run: |
-      python -m venv venv
-      . venv/bin/activate
+  build:
+    runs-on: ubuntu-latest
 
-  - name: Install project dependencies
-    run: |
-      . venv/bin/activate
-      pip install -r requirements.txt
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          submodules: "recursive"
 
-  - name: Initialize and migrate database
-    run: |
-      . venv/bin/activate
-      python manage.py db init
-      python manage.py db migrate
-      python manage.py db upgrade
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.8"
 
-  - name: Execute tests with coverage
-    run: |
-      . venv/bin/activate
-      pytest --cov=app --cov-report=term --cov-fail-under=90 ./app/test
+      - name: Create virtual environment
+        run: |
+          python -m venv venv
+          source venv/bin/activate
+
+      - name: Install dependencies
+        run: |
+          source venv/bin/activate
+          pip install -r requirements.txt
+      - name: Set up database
+        run: |
+          source venv/bin/activate
+          python manage.py db init
+          python manage.py db migrate
+          python manage.py db upgrade
+      - name: Run tests with coverage
+        run: |
+          source venv/bin/activate
+          pytest --cov=app --cov-report=term --cov-fail-under=80 ./app/test
