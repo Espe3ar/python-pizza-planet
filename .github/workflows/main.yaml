@@ -1,5 +1,9 @@
+name: Pizza Planet CI
+on:
+  pull_request:
+    branches: [ main ]
 jobs:
-  build:
+  test_pull_request:
     runs-on: ubuntu-latest
 
     steps:
