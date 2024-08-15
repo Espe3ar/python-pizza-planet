@@ -1,7 +1,10 @@
-with:
-  python-version: "3.10"
+name: Pizza Planet CI
 
-steps:
+on:
+  pull_request:
+    branches: [ main ]
+
+jobs:
   - name: Set up virtual environment
     run: |
       python -m venv venv
@@ -22,5 +25,4 @@ steps:
   - name: Execute tests with coverage
     run: |
       . venv/bin/activate
-      pytest --cov=app --cov-report=term --cov-fail-under=80 ./app/test
-
+      pytest --cov=app --cov-report=term --cov-fail-under=90 ./app/test
