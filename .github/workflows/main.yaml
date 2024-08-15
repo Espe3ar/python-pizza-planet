@@ -16,6 +16,10 @@ jobs:
         with:
           python-version: '3.x'
 
-      - run: |
-          source venv/Scripts/activate
+      - name: Create virtual environment
+        run: python -m venv venv
+
+      - name: Run tests
+        run: |
+          source venv/bin/activate
           python manage.py test
