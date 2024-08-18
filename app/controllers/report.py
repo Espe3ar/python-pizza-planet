@@ -23,5 +23,6 @@ class ReportController(BaseController):
 
             return entire_report,200
         except Exception as e:
-            print(f"Error: {e}")
             return {"error": str(e)}, 500
+        
+        

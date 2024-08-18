@@ -10,13 +10,14 @@ from app.repositories.models import (
     Order,
     OrderBeverage,
     OrderIngredient,
-    Size,
+    Size
 )
 
 from .fixtures.ingredient import *
 from .fixtures.order import *
 from .fixtures.size import *
 from .fixtures.beverage import *
+from .fixtures.report import *
 
 @pytest.fixture
 def app():
