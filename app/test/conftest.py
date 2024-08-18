@@ -10,7 +10,7 @@ from app.repositories.models import (
     Order,
     OrderBeverage,
     OrderIngredient,
-    Size
+    Size,
 )
 
 from .fixtures.ingredient import *
