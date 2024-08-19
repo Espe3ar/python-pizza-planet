@@ -4,3 +4,4 @@ from .index_manager import IndexManager
 from .ingredient_manager import IngredientManager
 from .order_manager import OrderManager
 from .size_manager import SizeManager
+from .report_manager import ReportManager
